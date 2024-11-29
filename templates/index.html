@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepfake Image Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script>
+        function previewImage(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const img = document.getElementById('image-preview');
+                img.src = e.target.result;
+                img.style.display = 'block'; // Show the image
+            };
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Deepfake Image Detector</h1>
+        <div class="upload-form">
+            <form action="{{ url_for('predict') }}" method="post" enctype="multipart/form-data">
+                <div class="file-input">
+                    <input type="file" name="file" id="file" accept="image/*" required onchange="previewImage(event)">
+                    <label for="file">Choose an image</label>
+                </div>
+                <img id="image-preview" style="display:none; margin-top: 20px;" alt="Image Preview">
+                <button type="submit" style="margin-top: 20px;">Analyze Image</button>
+            </form>
+            {% if error %}
+            <div class="error">
+                {{ error }}
+            </div>
+            {% endif %}
+        </div>
+        <div class="button-container">
+            <a href="{{ url_for('history_page') }}" class="back-button">View Analysis History</a>
+        </div>
+    </div>
+</body>
+</html>

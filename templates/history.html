@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Analysis History</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Result</th>
+                    <th>Confidence</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in history %}
+                <tr>
+                    <td>
+                        <img src="{{ url_for('static', filename='uploads/' + entry.filename) }}" alt="Uploaded Image" class="history-image">
+                    </td>
+                    <td>{{ entry.result }}</td>
+                    <td>{{ entry.confidence }}%</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="button-container">
+            <a href="{{ url_for('index') }}" class="back-button">Analyze Another Image</a>
+        </div>
+    </div>
+</body>
+</html>

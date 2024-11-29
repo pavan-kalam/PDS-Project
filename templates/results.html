@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detection Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Detection Result</h1>
+        <div class="result-container">
+            <h2>File: {{ filename }}</h2>
+            <div class="result {{ result.lower() }}">
+                <h3>This image is: {{ result }}</h3>
+                <p>Confidence: {{ "%.2f"|format(confidence) }}%</p>
+            </div>
+            <div class="image-container">
+                <h3>Uploaded Image:</h3>
+                <img src="{{ url_for('static', filename='uploads/' + filename) }}" alt="Uploaded Image" style="max-width: 100%; height: auto;">
+            </div>
+            
+            <div class="button-container">
+                <a href="{{ url_for('history_page') }}" class="back-button">View Analysis History</a>
+            </div>
+            <div class="button-container">
+                <a href="{{ url_for('index') }}" class="back-button">Analyze Another Image</a>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
