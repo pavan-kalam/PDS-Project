@@ -9,21 +9,21 @@ app = Flask(__name__)
 
 # Global variable for the model and history
 model = None
-history = []  # Global list to store history of predictions
+history = []  
 # Define a directory for uploaded images
 UPLOAD_FOLDER = 'static/uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # Load your model here
-model = keras.models.load_model('model/cnn_original.keras')  # Adjust the filename as necessary
+model = keras.models.load_model('model/cnn_original.keras')  
 
 def preprocess_image(image):
     # Ensure the image is in RGB format
     if image.mode != 'RGB':
         image = image.convert('RGB')
     
-    # Resize the image to the expected input size for the model
-    image = image.resize((128, 128))  # Adjust size based on your model's input shape
+   
+    image = image.resize((128, 128))  # Adjust and resize the image based on model's input shape
     
     # Convert the image to a numpy array and normalize pixel values
     image_array = np.array(image)
@@ -84,7 +84,7 @@ def predict():
 
 @app.route('/history')
 def history_page():
-    global history  # Ensure you declare it as global here too
+    global history  
     return render_template('history.html', history=history)
 
 if __name__ == '__main__':
